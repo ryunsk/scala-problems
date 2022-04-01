@@ -1,0 +1,5 @@
+cat
+car
+cow
+dog
+pig
