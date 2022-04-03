@@ -1,6 +1,8 @@
 package texasholdem
 
-import scala.Console.in
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
+
 
 class DeckTest extends AnyFlatSpec with Matchers {
 
