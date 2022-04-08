@@ -14,17 +14,37 @@ object PokerHandRanker {
       throw new RuntimeException("There should be only 7 cards total in hand and table")
     }
     val straight = hasStraight(allCardsSorted)
+    if (straight._1) return (Straight, straight._2)
 
-    println(allCardsSorted)
-    println(straight)
+    val flush = hasFlush(allCardsSorted)
+    if (flush._1) return (Flush, flush._2)
 
-    (HighCard, allCardsSorted.take(1))
+    val fullHouse = hasFullHouse(allCardsSorted)
+    if (fullHouse._1) return (FullHouse, fullHouse._2)
+
+    val threeOfAKind = hasThreeOfAKind(allCardsSorted)
+    if (threeOfAKind._1) return (ThreeOfAKind, threeOfAKind._2)
+
+    val twoPairs = hasTwoPairs(allCardsSorted)
+    if (twoPairs._1) return (TwoPair, twoPairs._2)
+
+    val onePair = hasOnePair(allCardsSorted)
+    if (onePair._1) return (OnePair, onePair._2) else {
+      val highCard = hasHighCard(allCardsSorted)
+      (HighCard, highCard._2)
+    }
   }
 
   // Return boolean and the matched cards. Input is sorted cards
   // Edge cases: High / low Ace
   // https://stackoverflow.com/questions/6985148/scala-detecting-a-straight-in-a-5-card-poker-hand-using-pattern-matching
   private def hasStraight(cards: Seq[Card]): (Boolean, Seq[Card]) = {
+    // case for Ace
+    //    if (cards.head.number == 1) {
+    //      val cardsWithHighAce = cards ++ Seq(Card(14, cards.head.suit))
+    //    }
+    cards.sliding(5, 1)
+
     var count = 0
     (false, Seq())
   }
@@ -53,6 +73,7 @@ object PokerHandRanker {
   }
 
   private def hasHighCard(cards: Seq[Card]): (Boolean, Seq[Card]) = {
+    // Return Ace (1) if it exists or the highest number
     if (cards.head.number == 1) {
       (true, Seq(cards.head))
     } else {
