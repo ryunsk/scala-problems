@@ -51,25 +51,32 @@ object PokerHandRanker {
 
   private def hasFlush(cards: Seq[Card]): (Boolean, Seq[Card]) = {
     // Find the suit with 5 or more cards
-    //    cards.count(card => card.suit ==)
-    // Sort card by high cards (Ace, mod 13?)
-    ???
+    val cardsGroupedBySuit = cards.groupBy(_.suit)
+    val suitWithFlush = cardsGroupedBySuit.filter {
+      case (_, cards) => cards.length >= 5
+    }
+    if(suitWithFlush.size==1){
+      (true, suitWithFlush.values.flatten.toSeq.sortBy(-_.number).take(5))
+    } else{
+      (false, Seq())
+    }
+
   }
 
   private def hasFullHouse(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    ???
+    (false, Seq())
   }
 
   private def hasThreeOfAKind(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    ???
+    (false, Seq())
   }
 
   private def hasTwoPairs(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    ???
+    (false, Seq())
   }
 
   private def hasOnePair(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    ???
+    (false, Seq())
   }
 
   private def hasHighCard(cards: Seq[Card]): (Boolean, Seq[Card]) = {

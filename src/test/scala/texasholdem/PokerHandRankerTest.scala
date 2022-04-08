@@ -43,7 +43,7 @@ class PokerHandRankerTest extends AnyFlatSpec with Matchers {
     val table = Table(Seq(Card(3, Spades), Card(10, Spades), Card(7, Spades), Card(5, Spades), Card(7, Hearts)))
 
     PokerHandRanker.rankHand(player, table) shouldEqual
-      (Flush, Seq(Card(13, Spades), Card(3, Spades), Card(10, Spades), Card(7, Spades), Card(5, Spades)))
+      (Flush, Seq(Card(13,Spades), Card(10,Spades), Card(7,Spades), Card(5,Spades), Card(3,Spades)))
   }
 
   it should "rank straight - high ace" in {
