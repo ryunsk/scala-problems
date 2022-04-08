@@ -56,6 +56,7 @@ object PokerHandRanker {
       case (_, cards) => cards.length >= 5
     }
     if(suitWithFlush.size==1){
+      // TODO: Case for ace
       (true, suitWithFlush.values.flatten.toSeq.sortBy(-_.number).take(5))
     } else{
       (false, Seq())
