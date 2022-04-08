@@ -88,8 +88,8 @@ class PokerHandRankerTest extends AnyFlatSpec with Matchers {
   }
 
   it should "rank high card" in {
-    val player = Player(Seq(Card(1, Spades), Card(2, Spades)))
-    val table = Table(Seq(Card(3, Spades), Card(4, Spades), Card(5, Spades), Card(7, Clubs), Card(9, Diamonds)))
+    val player = Player(Seq(Card(1, Spades), Card(2, Clubs)))
+    val table = Table(Seq(Card(3, Spades), Card(4, Spades), Card(5, Diamonds), Card(7, Clubs), Card(9, Diamonds)))
 
     PokerHandRanker.rankHand(player, table) shouldEqual(HighCard, Seq(Card(1, Spades)))
 
