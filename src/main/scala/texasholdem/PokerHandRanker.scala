@@ -118,28 +118,9 @@ object PokerHandRanker {
       }
     }
     (false, Seq())
-    // Unused
-    // Case with Ace
-    //    if (numbers.head == 1) {
-    //      val numbersWithAce = numbers ++ Seq(14)
-    //      val hasStraightBool = straightFinder(numbersWithAce, 1)
-    //      if (hasStraightBool) {
-    //
-    //      } else {
-    //        (false, Seq())
-    //      }
-    //
-    //    } else {
-    //      val hasStraightBool = straightFinder(numbers, 1)
-    //      if (hasStraightBool) {
-    //
-    //      } else {
-    //        (false, Seq())
-    //      }
-    //    }
   }
 
-  // Unused
+  // Unused - Might be useful!
   @tailrec
   private def straightFinder(numbers: Seq[Int], count: Int): Boolean = {
     if (count == 5) {
