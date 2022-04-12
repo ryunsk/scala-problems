@@ -70,6 +70,14 @@ class PokerHandRankerTest extends AnyFlatSpec with Matchers {
       (Straight, Seq(Card(1, Spades), Card(2, Diamonds), Card(3, Spades), Card(4, Spades), Card(5, Diamonds)))
   }
 
+  it should "rank straight - multiple cards" in {
+    val player = Player(Seq(Card(1, Spades), Card(3, Diamonds)))
+    val table = Table(Seq(Card(3, Spades), Card(2, Diamonds), Card(4, Diamonds), Card(5, Clubs), Card(9, Diamonds)))
+
+    PokerHandRanker.rankHand(player, table) shouldEqual
+      (Straight, Seq(Card(1, Spades), Card(2, Diamonds), Card(3, Spades), Card(4, Diamonds), Card(5, Clubs)))
+  }
+
   it should "rank three of a kind" in {
     val player = Player(Seq(Card(1, Spades), Card(1, Diamonds)))
     val table = Table(Seq(Card(1, Clubs), Card(2, Spades), Card(5, Clubs), Card(7, Clubs), Card(9, Diamonds)))
