@@ -29,10 +29,10 @@ object PokerHandRanker {
     if (twoPairs._1) return (TwoPair, twoPairs._2)
 
     val onePair = hasOnePair(allCardsSorted)
-    if (onePair._1) return (OnePair, onePair._2) else {
-      val highCard = hasHighCard(allCardsSorted)
-      (HighCard, highCard._2)
-    }
+    if (onePair._1) return (OnePair, onePair._2)
+
+    val highCard = hasHighCard(allCardsSorted)
+    (HighCard, highCard._2)
   }
 
   // Return boolean and the matched cards. Input is sorted cards
@@ -55,29 +55,58 @@ object PokerHandRanker {
     val suitWithFlush = cardsGroupedBySuit.filter {
       case (_, cards) => cards.length >= 5
     }
-    if(suitWithFlush.size==1){
+    if (suitWithFlush.size == 1) {
       // TODO: Case for ace
       (true, suitWithFlush.values.flatten.toSeq.sortBy(-_.number).take(5))
-    } else{
+    } else {
       (false, Seq())
     }
 
   }
 
   private def hasFullHouse(cards: Seq[Card]): (Boolean, Seq[Card]) = {
+    val threeOfAKind = hasThreeOfAKind(cards)
+    val pair = hasOnePair(cards)
     (false, Seq())
   }
 
   private def hasThreeOfAKind(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    (false, Seq())
+    val cardsGroupedByNumber = cards.groupBy(_.number)
+    val threes = cardsGroupedByNumber.filter { case (_, v) => v.length == 3 }
+    if (threes.nonEmpty) {
+      val highestPair = threes.getOrElse(1, threes(threes.keys.max))
+      (true, highestPair)
+    } else {
+      (false, Seq())
+    }
   }
 
   private def hasTwoPairs(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    (false, Seq())
+    val cardsGroupedByNumber = cards.groupBy(_.number)
+    val pairs = cardsGroupedByNumber.filter { case (_, v) => v.length == 2 }
+    if (pairs.nonEmpty) {
+      val highestPair = pairs.getOrElse(1, pairs(pairs.keys.max))
+      val nextPairs = pairs.filter { case (k, _) => k != highestPair.head.number }
+      if (nextPairs.nonEmpty) {
+        val nextHighestPair = nextPairs(nextPairs.keys.max)
+        (true, highestPair ++ nextHighestPair)
+      } else {
+        (false, Seq())
+      }
+    } else {
+      (false, Seq())
+    }
   }
 
   private def hasOnePair(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    (false, Seq())
+    val cardsGroupedByNumber = cards.groupBy(_.number)
+    val pairs = cardsGroupedByNumber.filter { case (_, v) => v.length == 2 }
+    if (pairs.nonEmpty) {
+      val highestPair = pairs.getOrElse(1, pairs(pairs.keys.max))
+      (true, highestPair)
+    } else {
+      (false, Seq())
+    }
   }
 
   private def hasHighCard(cards: Seq[Card]): (Boolean, Seq[Card]) = {
