@@ -1,5 +1,7 @@
 package texasholdem
 
+import scala.annotation.tailrec
+
 object PokerHandRanker {
 
 
@@ -93,14 +95,49 @@ object PokerHandRanker {
   }
 
   private def hasStraight(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    //     case for Ace
-    //    if (cards.head.number == 1) {
-    //      val cardsWithHighAce = cards ++ Seq(Card(14, cards.head.suit))
-    //    }
-    cards.sliding(5, 1)
+    // TODO: Slow algorithm
+    // Edge case for Straight flush as it may return an empty card
+    if (cards.isEmpty) {
+      return (false, Seq())
+    }
+    val cardsGroupedByNumber = cards.groupBy(_.number)
+    val possibleStraights = Range.inclusive(1, 13).sliding(5, 1) ++ Seq(10, 11, 12, 13, 1)
+    val cardNumbers = cardsGroupedByNumber.keySet
 
-    var count = 0
+    possibleStraights.map(possibleStraight => possibleStraight)
+
+
     (false, Seq())
+    // Case with Ace
+    //    if (numbers.head == 1) {
+    //      val numbersWithAce = numbers ++ Seq(14)
+    //      val hasStraightBool = straightFinder(numbersWithAce, 1)
+    //      if (hasStraightBool) {
+    //
+    //      } else {
+    //        (false, Seq())
+    //      }
+    //
+    //    } else {
+    //      val hasStraightBool = straightFinder(numbers, 1)
+    //      if (hasStraightBool) {
+    //
+    //      } else {
+    //        (false, Seq())
+    //      }
+    //    }
+  }
+
+  @tailrec
+  private def straightFinder(numbers: Seq[Int], count: Int): Boolean = {
+    if (count == 5) {
+      return true
+    }
+    if (numbers(1) == numbers.head + 1) {
+      straightFinder(numbers.tail, count + 1)
+    } else {
+      false
+    }
   }
 
   private def hasThreeOfAKind(cards: Seq[Card]): (Boolean, Seq[Card]) = {
