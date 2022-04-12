@@ -95,19 +95,30 @@ object PokerHandRanker {
   }
 
   private def hasStraight(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    // TODO: Slow algorithm
     // Edge case for Straight flush as it may return an empty card
     if (cards.isEmpty) {
       return (false, Seq())
     }
+    val possibleStraights = (Range.inclusive(1, 13).sliding(5, 1).map(_.toSet) ++ Seq(Set(10, 11, 12, 13, 1))).toSeq
     val cardsGroupedByNumber = cards.groupBy(_.number)
-    val possibleStraights = Range.inclusive(1, 13).sliding(5, 1) ++ Seq(10, 11, 12, 13, 1)
     val cardNumbers = cardsGroupedByNumber.keySet
 
-    possibleStraights.map(possibleStraight => possibleStraight)
-
-
+    val straightNumbers = possibleStraights.filter(x => x.intersect(cardNumbers).size == 5)
+    if (straightNumbers.nonEmpty) {
+      // Get the highest straight here with A and K
+      val highestStraight = straightNumbers.filter(x => x.intersect(Set(1, 13)).size == 2)
+      if (highestStraight.size == 1) {
+        val straightCards = highestStraight.head.map(x=>cardsGroupedByNumber(x).head).toSeq.sortBy(_.number)
+        return (true, straightCards)
+      } else {
+        val highestNumber = straightNumbers.flatMap(x=>x.toSeq).max
+        val highestStraight = straightNumbers.filter(x => x.intersect(Set(highestNumber)).size == 1)
+        val straightCards = highestStraight.head.map(x=>cardsGroupedByNumber(x).head).toSeq.sortBy(_.number)
+        return (true, straightCards)
+      }
+    }
     (false, Seq())
+    // Unused
     // Case with Ace
     //    if (numbers.head == 1) {
     //      val numbersWithAce = numbers ++ Seq(14)
@@ -128,6 +139,7 @@ object PokerHandRanker {
     //    }
   }
 
+  // Unused
   @tailrec
   private def straightFinder(numbers: Seq[Int], count: Int): Boolean = {
     if (count == 5) {
