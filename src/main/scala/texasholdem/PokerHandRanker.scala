@@ -13,14 +13,20 @@ object PokerHandRanker {
     if (allCardsSorted.length != 7) {
       throw new RuntimeException("There should be only 7 cards total in hand and table")
     }
-    val straight = hasStraight(allCardsSorted)
-    if (straight._1) return (Straight, straight._2)
+    val straightFlush = hasStraightFlush(allCardsSorted)
+    if (straightFlush._1) return (StraightFlush, straightFlush._2)
+
+    val fourOfAKind = hasFourOfAKind(allCardsSorted)
+    if (fourOfAKind._1) return (FourOfAKind, fourOfAKind._2)
+
+    val fullHouse = hasFullHouse(allCardsSorted)
+    if (fullHouse._1) return (FullHouse, fullHouse._2)
 
     val flush = hasFlush(allCardsSorted)
     if (flush._1) return (Flush, flush._2)
 
-    val fullHouse = hasFullHouse(allCardsSorted)
-    if (fullHouse._1) return (FullHouse, fullHouse._2)
+    val straight = hasStraight(allCardsSorted)
+    if (straight._1) return (Straight, straight._2)
 
     val threeOfAKind = hasThreeOfAKind(allCardsSorted)
     if (threeOfAKind._1) return (ThreeOfAKind, threeOfAKind._2)
@@ -38,15 +44,31 @@ object PokerHandRanker {
   // Return boolean and the matched cards. Input is sorted cards
   // Edge cases: High / low Ace
   // https://stackoverflow.com/questions/6985148/scala-detecting-a-straight-in-a-5-card-poker-hand-using-pattern-matching
-  private def hasStraight(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    // case for Ace
-    //    if (cards.head.number == 1) {
-    //      val cardsWithHighAce = cards ++ Seq(Card(14, cards.head.suit))
-    //    }
-    cards.sliding(5, 1)
 
-    var count = 0
+  private def hasStraightFlush(cards: Seq[Card]): (Boolean, Seq[Card]) = {
     (false, Seq())
+  }
+
+  private def hasFourOfAKind(cards: Seq[Card]): (Boolean, Seq[Card]) = {
+    val cardsGroupedByNumber = cards.groupBy(_.number)
+    val fours = cardsGroupedByNumber.filter { case (_, v) => v.length == 4 }
+    if (fours.nonEmpty) {
+      val highestPair = fours.getOrElse(1, fours(fours.keys.max))
+      (true, highestPair)
+    } else {
+      (false, Seq())
+    }
+  }
+
+  private def hasFullHouse(cards: Seq[Card]): (Boolean, Seq[Card]) = {
+    val threeOfAKind = hasThreeOfAKind(cards)
+    val remainingCards = cards.filter(card => !threeOfAKind._2.contains(card))
+    val pair = hasOnePair(remainingCards)
+    if (threeOfAKind._1 && pair._1) {
+      (true, threeOfAKind._2 ++ pair._2)
+    } else {
+      (false, Seq())
+    }
   }
 
   private def hasFlush(cards: Seq[Card]): (Boolean, Seq[Card]) = {
@@ -61,12 +83,16 @@ object PokerHandRanker {
     } else {
       (false, Seq())
     }
-
   }
 
-  private def hasFullHouse(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    val threeOfAKind = hasThreeOfAKind(cards)
-    val pair = hasOnePair(cards)
+  private def hasStraight(cards: Seq[Card]): (Boolean, Seq[Card]) = {
+    // case for Ace
+    //    if (cards.head.number == 1) {
+    //      val cardsWithHighAce = cards ++ Seq(Card(14, cards.head.suit))
+    //    }
+    cards.sliding(5, 1)
+
+    var count = 0
     (false, Seq())
   }
 

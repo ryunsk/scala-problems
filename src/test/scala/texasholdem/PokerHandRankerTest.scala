@@ -27,7 +27,7 @@ class PokerHandRankerTest extends AnyFlatSpec with Matchers {
     val table = Table(Seq(Card(2, Diamonds), Card(4, Spades), Card(2, Hearts), Card(2, Clubs), Card(9, Diamonds)))
 
     PokerHandRanker.rankHand(player, table) shouldEqual
-      (FourOfAKind, Seq(Card(2, Spades), Card(2, Hearts), Card(2, Diamonds), Card(2, Clubs)))
+      (FourOfAKind, Seq(Card(2, Spades), Card(2, Diamonds), Card(2, Hearts), Card(2, Clubs)))
   }
 
   it should "rank full house" in {
@@ -35,7 +35,7 @@ class PokerHandRankerTest extends AnyFlatSpec with Matchers {
     val table = Table(Seq(Card(3, Clubs), Card(3, Spades), Card(3, Diamonds), Card(4, Clubs), Card(7, Hearts)))
 
     PokerHandRanker.rankHand(player, table) shouldEqual
-      (FullHouse, Seq(Card(13, Spades), Card(13, Hearts), Card(3, Clubs), Card(3, Spades), Card(3, Diamonds)))
+      (FullHouse, Seq(Card(3, Clubs), Card(3, Spades), Card(3, Diamonds), Card(13, Spades), Card(13, Hearts)))
   }
 
   it should "rank flush" in {
