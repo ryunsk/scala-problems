@@ -46,7 +46,9 @@ object PokerHandRanker {
   // https://stackoverflow.com/questions/6985148/scala-detecting-a-straight-in-a-5-card-poker-hand-using-pattern-matching
 
   private def hasStraightFlush(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    (false, Seq())
+    val flush = hasFlush(cards)
+    val straightFlush = hasStraight(flush._2)
+    (straightFlush._1, straightFlush._2)
   }
 
   private def hasFourOfAKind(cards: Seq[Card]): (Boolean, Seq[Card]) = {
@@ -74,12 +76,17 @@ object PokerHandRanker {
   private def hasFlush(cards: Seq[Card]): (Boolean, Seq[Card]) = {
     // Find the suit with 5 or more cards
     val cardsGroupedBySuit = cards.groupBy(_.suit)
-    val suitWithFlush = cardsGroupedBySuit.filter {
+    val suitToFlushCards = cardsGroupedBySuit.filter {
       case (_, cards) => cards.length >= 5
     }
-    if (suitWithFlush.size == 1) {
-      // TODO: Case for ace
-      (true, suitWithFlush.values.flatten.toSeq.sortBy(-_.number).take(5))
+    if (suitToFlushCards.size == 1) {
+      // Take Ace first if it exists
+      val aceCard = suitToFlushCards.head._2.filter(_.number == 1)
+      if (aceCard.size == 1) {
+        (true, aceCard ++ suitToFlushCards.values.flatten.toSeq.sortBy(-_.number).take(4))
+      } else {
+        (true, suitToFlushCards.values.flatten.toSeq.sortBy(-_.number).take(5))
+      }
     } else {
       (false, Seq())
     }
