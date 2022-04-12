@@ -108,12 +108,12 @@ object PokerHandRanker {
       // Get the highest straight here with A and K
       val highestStraight = straightNumbers.filter(x => x.intersect(Set(1, 13)).size == 2)
       if (highestStraight.size == 1) {
-        val straightCards = highestStraight.head.map(x=>cardsGroupedByNumber(x).head).toSeq.sortBy(_.number)
+        val straightCards = highestStraight.head.map(x => cardsGroupedByNumber(x).head).toSeq.sortBy(_.number)
         return (true, straightCards)
       } else {
-        val highestNumber = straightNumbers.flatMap(x=>x.toSeq).max
+        val highestNumber = straightNumbers.flatMap(x => x.toSeq).max
         val highestStraight = straightNumbers.filter(x => x.intersect(Set(highestNumber)).size == 1)
-        val straightCards = highestStraight.head.map(x=>cardsGroupedByNumber(x).head).toSeq.sortBy(_.number)
+        val straightCards = highestStraight.head.map(x => cardsGroupedByNumber(x).head).toSeq.sortBy(_.number)
         return (true, straightCards)
       }
     }

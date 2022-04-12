@@ -11,7 +11,7 @@ class PokerHandRankerTest extends AnyFlatSpec with Matchers {
     val table = Table(Seq(Card(11, Hearts), Card(10, Hearts), Card(1, Hearts), Card(3, Diamonds), Card(3, Clubs)))
 
     PokerHandRanker.rankHand(player, table) shouldEqual
-      (StraightFlush,List(Card(1,Hearts), Card(10,Hearts), Card(11,Hearts), Card(12,Hearts), Card(13,Hearts)))
+      (StraightFlush, List(Card(1, Hearts), Card(10, Hearts), Card(11, Hearts), Card(12, Hearts), Card(13, Hearts)))
   }
 
   it should "rank straight flush - low ace" in {
@@ -19,7 +19,7 @@ class PokerHandRankerTest extends AnyFlatSpec with Matchers {
     val table = Table(Seq(Card(3, Spades), Card(4, Spades), Card(5, Spades), Card(7, Clubs), Card(9, Diamonds)))
 
     PokerHandRanker.rankHand(player, table) shouldEqual
-      (StraightFlush,List(Card(1,Spades), Card(2,Spades), Card(3,Spades), Card(4,Spades), Card(5,Spades)))
+      (StraightFlush, List(Card(1, Spades), Card(2, Spades), Card(3, Spades), Card(4, Spades), Card(5, Spades)))
   }
 
   it should "rank four of a kind" in {
@@ -59,7 +59,7 @@ class PokerHandRankerTest extends AnyFlatSpec with Matchers {
     val table = Table(Seq(Card(11, Hearts), Card(10, Hearts), Card(1, Clubs), Card(3, Diamonds), Card(3, Clubs)))
 
     PokerHandRanker.rankHand(player, table) shouldEqual
-      (Straight,List(Card(1,Clubs), Card(10,Hearts), Card(11,Hearts), Card(12,Spades), Card(13,Hearts)))
+      (Straight, List(Card(1, Clubs), Card(10, Hearts), Card(11, Hearts), Card(12, Spades), Card(13, Hearts)))
   }
 
   it should "rank straight - low ace" in {
@@ -83,7 +83,7 @@ class PokerHandRankerTest extends AnyFlatSpec with Matchers {
     val table = Table(Seq(Card(3, Spades), Card(4, Diamonds), Card(5, Diamonds), Card(6, Clubs), Card(7, Diamonds)))
 
     PokerHandRanker.rankHand(player, table) shouldEqual
-      (Straight,List(Card(3,Spades), Card(4,Diamonds), Card(5,Diamonds), Card(6,Clubs), Card(7,Diamonds)))
+      (Straight, List(Card(3, Spades), Card(4, Diamonds), Card(5, Diamonds), Card(6, Clubs), Card(7, Diamonds)))
   }
 
   it should "rank three of a kind" in {
