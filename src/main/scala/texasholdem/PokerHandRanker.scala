@@ -93,7 +93,7 @@ object PokerHandRanker {
   }
 
   private def hasStraight(cards: Seq[Card]): (Boolean, Seq[Card]) = {
-    // case for Ace
+    //     case for Ace
     //    if (cards.head.number == 1) {
     //      val cardsWithHighAce = cards ++ Seq(Card(14, cards.head.suit))
     //    }
@@ -119,9 +119,9 @@ object PokerHandRanker {
     val pairs = cardsGroupedByNumber.filter { case (_, v) => v.length == 2 }
     if (pairs.nonEmpty) {
       val highestPair = pairs.getOrElse(1, pairs(pairs.keys.max))
-      val nextPairs = pairs.filter { case (k, _) => k != highestPair.head.number }
-      if (nextPairs.nonEmpty) {
-        val nextHighestPair = nextPairs(nextPairs.keys.max)
+      val remainingPairs = pairs.filter { case (k, _) => k != highestPair.head.number }
+      if (remainingPairs.nonEmpty) {
+        val nextHighestPair = remainingPairs(remainingPairs.keys.max)
         (true, highestPair ++ nextHighestPair)
       } else {
         (false, Seq())
