@@ -7,6 +7,11 @@ Usenet.
 
 The choice of input data is up to you, but if it generates something fun then please share with the group.
 
+- Read a training text
+- Save triple of words (as a list to simplify)
+- Select two words in the training text + third word of the triple
+- Slide the output window from word to word
+
 ## Resources
 
 - https://www.gutenberg.org/ - Free eBooks for input text.
