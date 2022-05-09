@@ -16,7 +16,8 @@ object MarkShaney {
 
   def generateNextWord(input: Seq[Seq[String]]): String = {
     val randomIndex = Random.nextInt(input.length)
-    val words = " " + input(randomIndex)(0) + " " + input(randomIndex)(1) + " " + input(randomIndex)(2)
+    val randomIndex2 = Random.nextInt(input.length)
+    val words = " " + input(randomIndex)(0) + " " + input(randomIndex)(1) + " " + input(randomIndex2)(2)
     words
   }
 
