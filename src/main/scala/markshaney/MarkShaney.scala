@@ -23,7 +23,8 @@ object MarkShaney {
       if (word.startsWith("“")) {
         word.substring(1, word.length)
       }
-      else if (word.endsWith("”")) {
+      else if (word.endsWith("”") || word.endsWith(".")) {
+        // Note: "!?.".contains(word.substring(word.length - 1, word.length)) - Remove end of sentence punctuation
         word.substring(0, word.length - 1)
       }
       else if (word.startsWith("_") && word.endsWith("_")) {
