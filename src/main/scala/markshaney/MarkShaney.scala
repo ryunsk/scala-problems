@@ -7,8 +7,10 @@ import scala.util.Random
 object MarkShaney {
 
   def main(args: Array[String]): Unit = {
-    val text = readInput("mark-shaney/input-string.txt")
-    //    val text = readInput("mark-shaney/input-string-test.txt")
+    //    val text1 = readInput("mark-shaney/input-string.txt")
+    //    val text2 = readInput("mark-shaney/input-string-test.txt") // Wikipedia Physics topics
+    //    val text = text1 ++ text2
+    val text = readInput("mark-shaney/input-string-test.txt")
     val cleaned = cleanInput(text)
     //    println(cleaned)
     println()
