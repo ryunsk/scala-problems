@@ -3,14 +3,25 @@ package markshaney
 import scala.io.Source
 import scala.util.Random
 
+
 object MarkShaney {
 
   def main(args: Array[String]): Unit = {
     val text = readInput("mark-shaney/input-string.txt")
     //    val text = readInput("mark-shaney/input-string-test.txt")
     val cleaned = cleanInput(text)
-    val triplets = wordsToTriplets(cleaned)
-    println(triplets)
+    //    println(cleaned)
+    println()
+
+    val wordMap = wordsToWordMap(cleaned)
+    var i = 0
+    val randomWord = cleaned(Random.nextInt(cleaned.length))
+    var word = generateNextWord(randomWord, wordMap)
+    while (i < 200) {
+      word = generateNextWord(word, wordMap)
+      print(word + " ")
+      i += 1
+    }
   }
 
   def readInput(filePath: String): Seq[String] = {
@@ -23,8 +34,9 @@ object MarkShaney {
       if (word.startsWith("“")) {
         word.substring(1, word.length)
       }
-      else if (word.endsWith("”") || word.endsWith(".")) {
-        // Note: "!?.".contains(word.substring(word.length - 1, word.length)) - Remove end of sentence punctuation
+      else if (word.endsWith("”")) {
+        // || word.endsWith(".")
+        // Note: "!?.,".contains(word.substring(word.length - 1, word.length)) - Remove end of sentence punctuation
         word.substring(0, word.length - 1)
       }
       else if (word.startsWith("_") && word.endsWith("_")) {
@@ -36,13 +48,16 @@ object MarkShaney {
     })
   }
 
-  def wordsToTriplets(words: Seq[String]): Seq[Seq[String]] = {
-    words.sliding(3, 3).toSeq
+  def wordsToWordMap(words: Seq[String]): Map[String, List[String]] = {
+    val pairs = words.sliding(2, 1).map(x => x(0) -> x(1)).toList
+    pairs.groupBy(_._1).map { case (k, v) => (k, v.map(_._2)) }
   }
 
-  def generateNextWord(input: Seq[Seq[String]], word: String): String = {
-    val tripletsWithWord = input.filter(_.contains(word))
-    tripletsWithWord(Random.nextInt(tripletsWithWord.length))(2)
+
+  def generateNextWord(inputWord: String, wordMap: Map[String, List[String]]): String = {
+    val possibleWords = wordMap(inputWord)
+    val randomIndex = Random.nextInt(possibleWords.length)
+    possibleWords(randomIndex)
   }
 
 }
