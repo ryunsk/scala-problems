@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 class InputParserTest extends AnyFlatSpec with Matchers {
   it should "get grid dimensions" in {
-    InputParser.gridDimensions shouldEqual Seq("5", "5")
+    InputParser.gridDimensions shouldEqual Seq(5, 5)
   }
   it should "rover 1 location" in {
     InputParser.rover1Position shouldEqual Seq("1", "2", "N")
