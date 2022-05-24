@@ -42,4 +42,31 @@ class MarsRoverTest extends AnyFlatSpec with Matchers {
     val marsRover = new MarsRover(position, instructions)
     marsRover.finalState shouldEqual RoverPosition(0, 1, 0)
   }
+
+  it should "move north when facing north" in {
+    val position = RoverPosition(1, 1, 0)
+    val instructions = "M"
+    val marsRover = new MarsRover(position, instructions)
+    marsRover.finalState shouldEqual RoverPosition(1, 2, 0)
+  }
+
+  it should "move east when facing east" in {
+    val position = RoverPosition(1, 1, 270)
+    val instructions = "M"
+    val marsRover = new MarsRover(position, instructions)
+    marsRover.finalState shouldEqual RoverPosition(0, 1, 270)
+  }
+  it should "move south when facing south" in {
+    val position = RoverPosition(1, 1, 180)
+    val instructions = "M"
+    val marsRover = new MarsRover(position, instructions)
+    marsRover.finalState shouldEqual RoverPosition(1, 0, 180)
+  }
+
+  it should "move west when facing west" in {
+    val position = RoverPosition(1, 1, 270)
+    val instructions = "M"
+    val marsRover = new MarsRover(position, instructions)
+    marsRover.finalState shouldEqual RoverPosition(0, 1, 270)
+  }
 }

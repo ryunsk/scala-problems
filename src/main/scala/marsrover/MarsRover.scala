@@ -13,6 +13,12 @@ class MarsRover(position: RoverPosition, instructions: String) {
     instructions match {
       case 'L' => position.copy(direction = (position.direction + 270) % 360)
       case 'R' => position.copy(direction = (position.direction + 90) % 360)
+      case 'M' => position.direction match {
+        case 0 => position.copy(y = position.y + 1)
+        case 90 => position.copy(x = position.x + 1)
+        case 180 => position.copy(y = position.y - 1)
+        case 270 => position.copy(x = position.x - 1)
+      }
     }
 
   }
