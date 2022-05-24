@@ -1,14 +1,30 @@
 package marsrover
 
-class MarsRover(grid: Seq[Seq[Int]], position: RoverPosition, instructions: String) {
-  val initialState = placeRover(grid, position)
+class MarsRover(position: RoverPosition, instructions: String) {
+  // grid: Seq[Seq[Int]]
+  //  val initialState: Seq[Seq[Int]] = placeRover(grid, position)
+  val finalState = moveRover(position, instructions)
 
-
-  private def placeRover(grid: Seq[Seq[Int]], position: RoverPosition): Seq[Seq[Int]] = {
-    val rowsIndex = grid.length - 1
-    val tempSubgrid = grid(rowsIndex - position.y).updated(position.x, position.Direction)
-    val updatedGrid = grid.updated(rowsIndex - position.y, tempSubgrid)
-    updatedGrid
+  private def moveRover(position: RoverPosition, instructions: String): RoverPosition = {
+    updatePositionSingleInput(position, instructions(0))
   }
 
+  private def updatePositionSingleInput(position: RoverPosition, instructions: Char): RoverPosition = {
+    instructions match {
+      case 'L' => position.copy(direction = (position.direction + 270) % 360)
+      case 'R' => position.copy(direction = (position.direction + 90) % 360)
+    }
+
+  }
+
+  private def placeRover(grid: Seq[Seq[Int]], position: RoverPosition): Seq[Seq[Int]] = {
+    updateGrid(grid, position.x, position.y, position.direction)
+  }
+
+  private def updateGrid(grid: Seq[Seq[Int]], x: Int, y: Int, updatedValue: Int): Seq[Seq[Int]] = {
+    val rowsIndex = grid.length - 1
+    val tempSubgrid = grid(rowsIndex - y).updated(x, updatedValue)
+    val updatedGrid = grid.updated(rowsIndex - y, tempSubgrid)
+    updatedGrid
+  }
 }

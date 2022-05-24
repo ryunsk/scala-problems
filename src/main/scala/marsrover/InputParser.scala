@@ -15,12 +15,12 @@ object InputParser {
 
   private def parsePosition(input: Seq[String]): RoverPosition = {
     val direction = input(2) match {
-      case "N" => 0
-      case "E" => 90
-      case "S" => 180
-      case "W" => 270
+      case "N" => 0 // 0
+      case "E" => 90 // 90
+      case "S" => 180 // 180
+      case "W" => 270 // 270
     }
-    RoverPosition(x = input(0).toInt, y = input(1).toInt, Direction = direction)
+    RoverPosition(x = input(0).toInt, y = input(1).toInt, direction = direction)
   }
 
   private def readInput(filePath: String): Seq[String] = {

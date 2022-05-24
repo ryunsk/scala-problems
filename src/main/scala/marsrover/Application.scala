@@ -8,6 +8,7 @@ object Application {
     val rover1Instructions = InputParser.rover1Instructions
     val grid = new Grid(gridDimensions(0), gridDimensions(1))
 
-    val marsRover = new MarsRover(grid.grid, rover1Position, rover1Instructions)
+    val marsRover = new MarsRover(rover1Position, rover1Instructions)
+    marsRover.finalState
   }
 }
