@@ -1,0 +1,5 @@
+package marsrover
+
+class MarsRover {
+
+}
