@@ -1,5 +1,6 @@
 package marsrover
 
+
 class Grid(x: Int, y: Int) {
   val grid = createGrid(x, y) // (rows, cols) <=> (y, x) not (x, y)
   //  val grid: Array[Array[String]] = Array.ofDim[String](y, x) // Alternate method
