@@ -13,7 +13,7 @@ class GridTest extends AnyFlatSpec with Matchers {
   }
 
   it should "throw an exception if grid size is negative" in {
-    assertThrows[NegativeArraySizeException] {
+    assertThrows[Exception] {
       new Grid(-1, 5)
     }
   }
