@@ -9,6 +9,6 @@ class Grid(x: Int, y: Int) {
     if (x < 0 || y < 0) {
       throw new Exception("Coordinates must be positive")
     }
-    Seq.fill(y)(Seq.fill(x)(0))
+    Seq.fill(y + 1)(Seq.fill(x + 1)(0))
   }
 }
