@@ -10,3 +10,4 @@ Coding problems in Scala programming language.
 - Texas Hold'em - [Link to files](src/main/scala/texasholdem)
 - Mark V. Shaney - [Link to files](src/main/scala/markshaney)
     - https://programmingpraxis.com/2009/02/27/mark-v-shaney/
+- Mars Rover - [Link to files](src/main/scala/marsrover)
