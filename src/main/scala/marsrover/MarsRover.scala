@@ -6,7 +6,7 @@ class MarsRover(position: RoverPosition, instructions: String) {
   val finalState = moveRover(position, instructions)
 
   private def moveRover(position: RoverPosition, instructions: String): RoverPosition = {
-    updatePositionSingleInput(position, instructions(0))
+    instructions.foldLeft(position) { case (roverPosition, instruction) => updatePositionSingleInput(roverPosition, instruction) }
   }
 
   private def updatePositionSingleInput(position: RoverPosition, instructions: Char): RoverPosition = {

@@ -69,4 +69,26 @@ class MarsRoverTest extends AnyFlatSpec with Matchers {
     val marsRover = new MarsRover(position, instructions)
     marsRover.finalState shouldEqual RoverPosition(0, 1, 270)
   }
+
+  it should "continuously move with series of instructions - Rover 1 example" in {
+    // Given
+    val position = RoverPosition(1, 2, 0)
+    val instructions = "LMLMLMLMM"
+    val expectedPosition = RoverPosition(1, 3, 0)
+    // When
+    val marsRover = new MarsRover(position, instructions)
+    // Then
+    marsRover.finalState shouldEqual expectedPosition
+  }
+
+  it should "continuously move with series of instructions - Rover 2 example" in {
+    // Given
+    val position = RoverPosition(3, 3, 90)
+    val instructions = "MMRMMRMRRM"
+    val expectedPosition = RoverPosition(5, 1, 90)
+    // When
+    val marsRover = new MarsRover(position, instructions)
+    // Then
+    marsRover.finalState shouldEqual expectedPosition
+  }
 }
