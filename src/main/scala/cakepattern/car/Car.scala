@@ -12,7 +12,7 @@ class Car(engine: Engine) extends Vehicle {
 
 // Example without dependency injection - Engine instantiated inside the class
 class CarNoDI extends Vehicle {
-  val engine: Engine = new FastEngine() // Car and Engine classes tightly coupled
+  val engine: Engine = new FastEngineClass() // Car and Engine classes tightly coupled
 
   override val numberOfWheels: Int = 4
   override val weight: Int = 11
@@ -22,15 +22,17 @@ class CarNoDI extends Vehicle {
   override def move(): Unit = println("Move")
 }
 
-trait CarTrait extends Vehicle {
-  engine: Engine =>
-  override val horsePower: Int = engine.horsePower // override
+// Trait with Vehicle with Engine dependency
+trait CarTrait {
+  car: Vehicle with Engine => // ?
+  override val horsePower: Int = car.horsePower
 }
 
-class CarUsingTrait extends CarTrait with Engine {
-  override val numberOfWheels: Int = 5
+class CarUsingTrait extends CarTrait with Vehicle with Engine { // ?
+  override val numberOfWheels: Int = 3
   override val weight: Int = 12
   override val maxPassengers: Int = 4
+  override val horsePower = 15
 
   override def move(): Unit = println("Move")
 }
