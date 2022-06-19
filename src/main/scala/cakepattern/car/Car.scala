@@ -17,7 +17,7 @@ class CarNoDI extends Vehicle {
   override val numberOfWheels: Int = 4
   override val weight: Int = 11
   override val maxPassengers: Int = 3
-  val horsePower = engine.horsePower // No override here
+  val horsePower: Int = engine.horsePower // No override here
 
   override def move(): Unit = println("Move")
 }

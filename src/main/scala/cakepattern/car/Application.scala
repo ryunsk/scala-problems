@@ -14,7 +14,7 @@ object Application {
     println(car2.horsePower)
     println(car2.weight)
 
-    val car3 = new CarUsingTrait
+    val car3 = new CarUsingTrait with Engine // Mixin trait
     println("Car 3")
     println(car3.horsePower)
     println(car3.weight)
