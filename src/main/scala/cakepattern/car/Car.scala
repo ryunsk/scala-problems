@@ -24,15 +24,15 @@ class CarNoDI extends Vehicle {
 
 // Trait with Vehicle with Engine dependency
 trait CarTrait {
-  car: Vehicle with Engine => // ?
-  override val horsePower: Int = car.horsePower
+  // ?
+  //  override val horsePower: Int = car.horsePower
 }
 
-class CarUsingTrait extends CarTrait with Vehicle with Engine { // ?
+class CarUsingTrait extends Vehicle {
+  this: Engine => // ? - Self typing. Requires Engine to create this Class.
   override val numberOfWheels: Int = 3
   override val weight: Int = 12
   override val maxPassengers: Int = 4
-  override val horsePower = 15
 
   override def move(): Unit = println("Move")
 }

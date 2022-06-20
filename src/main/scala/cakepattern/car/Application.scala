@@ -14,10 +14,10 @@ object Application {
     println(car2.horsePower) // 10
     println(car2.weight) // 11
 
-    val car3 = new CarUsingTrait with Engine // Mixin trait
-    println("Car 3")
-    println(car3.horsePower) // 15 - Default 15 if using Engine
-    println(car3.weight) // 12
+    //    val car3 = new CarUsingTrait with Engine // Mixin trait
+    //    println("Car 3")
+    //    println(car3.horsePower) // 15 - Default 15 if using Engine
+    //    println(car3.weight) // 12
 
     val car4 = new CarUsingTrait with FastEngine
     println("Car 4")
