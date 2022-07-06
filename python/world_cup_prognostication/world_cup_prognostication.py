@@ -36,7 +36,7 @@ class Simulation:
         group_b_winners = self.find_group_stage_winners(self.brackets[1])
         group_c_winners = self.find_group_stage_winners(self.brackets[2])
         group_d_winners = self.find_group_stage_winners(self.brackets[3])
-        print("Group stage winners: ")
+        print("=== Group stage winners: ===")
         print(group_a_winners, group_b_winners, group_c_winners, group_d_winners)
 
         # Quarter-finals 1 <-> 2, 3 <-> 4
@@ -44,24 +44,26 @@ class Simulation:
         quarter_1_winner = self.find_winner(quarter_1[0], quarter_1[1])
         quarter_2 = [group_b_winners[0], group_a_winners[1]]
         quarter_2_winner = self.find_winner(quarter_2[0], quarter_2[1])
-
         quarter_3 = [group_c_winners[0], group_d_winners[1]]
         quarter_3_winner = self.find_winner(quarter_3[0], quarter_3[1])
         quarter_4 = [group_d_winners[0], group_c_winners[1]]
         quarter_4_winner = self.find_winner(quarter_4[0], quarter_4[1])
 
-        print("Quarter final winners: ")
+        print("=== Quarter final winners: ===")
         print(quarter_1_winner, quarter_2_winner, quarter_3_winner, quarter_4_winner)
+
         # Semi-finals
-        print("Semi final winners: ")
         semi_1 = [quarter_3_winner, quarter_1_winner]
         semi_1_winner = self.find_winner(semi_1[0], semi_1[1])
         semi_2 = [quarter_4_winner, quarter_2_winner]
         semi_2_winner = self.find_winner(semi_2[0], semi_2[1])
 
+        print("=== Semi final winners: ===")
+        print(semi_1_winner, semi_2_winner)
+
         # Finals
         finals_winner = self.find_winner(semi_1_winner, semi_2_winner)
-        print("Finals winner: ")
+        print("=== Finals winner: === ")
         print(finals_winner)
         return finals_winner
 
@@ -119,6 +121,11 @@ class Simulation:
 
 
 simulation = Simulation()
-groupA = ["England", "Austria", "Norway", "Northern Ireland"]
+simulation_win_count = dict.fromkeys(simulation.team_ratings, 0)
 
-print(simulation.knockout_stage())
+print(simulation_win_count)
+for i in range(1000):
+    simulation_win_count[simulation.knockout_stage()] += 1
+
+sorted_win_count = sorted(simulation_win_count.items(), key=lambda x: -x[1])
+print(sorted_win_count)
