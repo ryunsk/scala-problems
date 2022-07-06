@@ -14,3 +14,4 @@ Coding problems in Scala programming language.
     - https://programmingpraxis.com/2009/02/27/mark-v-shaney/
 - Mars Rover - [Link to files](src/main/scala/marsrover)
 - Scala Cake Pattern - [Link to files](src/main/scala/cakepattern)
+- World Cup Prognostication - [Link to files](python/world_cup_prognostication)
