@@ -48,7 +48,6 @@ class Simulation:
         return self.find_countries_to_advance_in_group(win_counter)
 
     def find_countries_to_advance_in_group(self, win_counter):
-        winners = []
         print("Win counter " + str(win_counter))
         winners = sorted(win_counter.items(), key=lambda x: (-x[1], random.random()))
 
