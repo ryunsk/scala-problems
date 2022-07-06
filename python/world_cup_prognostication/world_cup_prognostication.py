@@ -1,3 +1,4 @@
+import itertools
 import random
 from typing import List
 
@@ -30,18 +31,39 @@ class Simulation:
         """
         Finds two teams in a group who will advance to the knockout stage.
         For simplicity there are no draws and tiebreakers.
+        In case of same points e.g. 3, 1, 1, 1 or 2, 2, 1, 1 or 2, 2, 2, 0
+        Other cases without ties: 3, 2, 1, 0
         :param teams: List of teams in the group stage
         :return: A list with two teams
         """
         win_counter = dict.fromkeys(teams, 0)
+        list_of_matches = list(itertools.combinations(teams, 2))
 
-        return
+        for team_a, team_b in list_of_matches:
+            if self.is_a_winner(team_a, team_b):
+                win_counter[team_a] += 1
+            else:
+                win_counter[team_b] += 1
 
-    def probability_of_win_a(self, a_rating: int, b_rating: int):
+        return self.find_countries_to_advance_in_group(win_counter)
+
+    def find_countries_to_advance_in_group(self, win_counter):
+        winners = []
+        print("Win counter " + str(win_counter))
+        winners = sorted(win_counter.items(), key=lambda x: (-x[1], random.random()))
+
+        return list(map(lambda x: x[0], winners[:2]))
+
+    def probability_of_win_a(self, a_rating: int, b_rating: int) -> float:
+        """
+        :param a_rating: ELO rating of team A
+        :param b_rating: ELO rating of team B
+        :return: Probability of team A winning
+        """
         m = (b_rating - a_rating) / 400
         return 1 / (1 + 10 ** m)
 
-    def is_winner(self, team_a: str, team_b: str) -> bool:
+    def is_a_winner(self, team_a: str, team_b: str) -> bool:
         """
         Plays a game between two team and checks if team A is the winner.
         :param team_a:
@@ -53,4 +75,11 @@ class Simulation:
 
 
 simulation = Simulation()
-print(simulation.team_ratings)
+groupA = ["England", "Austria", "Norway", "Northern Ireland"]
+
+# for i in range(10):
+#     print(simulation.find_group_stage_winners(groupA))
+
+my_win_counter = {"England": 3, "Norway": 1, "Austria": 1, "Northern Ireland": 1}
+for i in range(10):
+    print(simulation.find_countries_to_advance_in_group(my_win_counter))
