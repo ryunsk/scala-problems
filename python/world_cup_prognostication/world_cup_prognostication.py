@@ -36,8 +36,8 @@ class Simulation:
         group_b_winners = self.find_group_stage_winners(self.brackets[1])
         group_c_winners = self.find_group_stage_winners(self.brackets[2])
         group_d_winners = self.find_group_stage_winners(self.brackets[3])
-        print("=== Group stage winners: ===")
-        print(group_a_winners, group_b_winners, group_c_winners, group_d_winners)
+        # print("=== Group stage winners: ===")
+        # print(group_a_winners, group_b_winners, group_c_winners, group_d_winners)
 
         # Quarter-finals 1 <-> 2, 3 <-> 4
         quarter_1 = [group_a_winners[0], group_b_winners[1]]
@@ -49,8 +49,8 @@ class Simulation:
         quarter_4 = [group_d_winners[0], group_c_winners[1]]
         quarter_4_winner = self.find_winner(quarter_4[0], quarter_4[1])
 
-        print("=== Quarter final winners: ===")
-        print(quarter_1_winner, quarter_2_winner, quarter_3_winner, quarter_4_winner)
+        # print("=== Quarter final winners: ===")
+        # print(quarter_1_winner, quarter_2_winner, quarter_3_winner, quarter_4_winner)
 
         # Semi-finals
         semi_1 = [quarter_3_winner, quarter_1_winner]
@@ -58,13 +58,13 @@ class Simulation:
         semi_2 = [quarter_4_winner, quarter_2_winner]
         semi_2_winner = self.find_winner(semi_2[0], semi_2[1])
 
-        print("=== Semi final winners: ===")
-        print(semi_1_winner, semi_2_winner)
+        # print("=== Semi final winners: ===")
+        # print(semi_1_winner, semi_2_winner)
 
         # Finals
         finals_winner = self.find_winner(semi_1_winner, semi_2_winner)
-        print("=== Finals winner: === ")
-        print(finals_winner)
+        # print("=== Finals winner: === ")
+        # print(finals_winner)
         return finals_winner
 
     def find_group_stage_winners(self, teams: List[str]) -> List[str]:
@@ -88,7 +88,7 @@ class Simulation:
         return self.find_countries_to_advance_in_group(win_counter)
 
     def find_countries_to_advance_in_group(self, win_counter):
-        print("Group stage win counter: " + str(win_counter))
+        # print("Group stage win counter: " + str(win_counter))
         winners = sorted(win_counter.items(), key=lambda x: (-x[1], random.random()))
 
         return list(map(lambda x: x[0], winners[:2]))
@@ -129,3 +129,9 @@ for i in range(1000):
 
 sorted_win_count = sorted(simulation_win_count.items(), key=lambda x: -x[1])
 print(sorted_win_count)
+
+"""
+1,000,000 simulations:
+[('France', 263686), ('Sweden', 243432), ('Germany', 188440), ('Netherlands', 122518), ('England', 82331), ('Spain', 63124), ('Italy', 16369), ('Norway', 11817), ('Denmark', 4798), ('Iceland', 2413), ('Austria', 656), ('Belgium', 266), ('Switzerland', 120), ('Portugal', 23), ('Finland', 7), ('Northern Ireland', 0)]
+
+"""
