@@ -19,13 +19,12 @@ class Simulation:
                     "Switzerland": 1327,
                     "Northern Ireland": 980,
                     "Portugal": 1248}
-    # In order of group A, B, C and D.
 
+    # In order of group A, B, C and D.
     brackets = [["England", "Austria", "Norway", "Northern Ireland"],
                 ["Germany", "Denmark", "Spain", "Finland"],
                 ["Netherlands", "Sweden", "Switzerland", "Portugal"],
                 ["France", "Italy", "Belgium", "Iceland"]]
-    wins = dict.fromkeys(team_ratings, 0)  # Copy teams with count 0
 
     def find_group_stage_winners(self, teams: List[str]) -> List[str]:
         """
@@ -53,10 +52,5 @@ class Simulation:
         return random_probability <= self.probability_of_win_a(self.team_ratings[team_a], self.team_ratings[team_b])
 
 
-sim1 = Simulation()
-print(sim1.team_ratings)
-
-"""
-P(A) = 1/(1+10^m) 
-where m is the rating difference (rating(B)-rating(A)) divided by 400
-"""
+simulation = Simulation()
+print(simulation.team_ratings)
