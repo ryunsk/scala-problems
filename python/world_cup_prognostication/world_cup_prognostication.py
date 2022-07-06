@@ -27,6 +27,44 @@ class Simulation:
                 ["Netherlands", "Sweden", "Switzerland", "Portugal"],
                 ["France", "Italy", "Belgium", "Iceland"]]
 
+    def knockout_stage(self):
+        """
+        https://en.wikipedia.org/wiki/UEFA_Women%27s_Euro_2022#Knockout_stage
+        :return:
+        """
+        group_a_winners = self.find_group_stage_winners(self.brackets[0])
+        group_b_winners = self.find_group_stage_winners(self.brackets[1])
+        group_c_winners = self.find_group_stage_winners(self.brackets[2])
+        group_d_winners = self.find_group_stage_winners(self.brackets[3])
+        print("Group stage winners: ")
+        print(group_a_winners, group_b_winners, group_c_winners, group_d_winners)
+
+        # Quarter-finals 1 <-> 2, 3 <-> 4
+        quarter_1 = [group_a_winners[0], group_b_winners[1]]
+        quarter_1_winner = self.find_winner(quarter_1[0], quarter_1[1])
+        quarter_2 = [group_b_winners[0], group_a_winners[1]]
+        quarter_2_winner = self.find_winner(quarter_2[0], quarter_2[1])
+
+        quarter_3 = [group_c_winners[0], group_d_winners[1]]
+        quarter_3_winner = self.find_winner(quarter_3[0], quarter_3[1])
+        quarter_4 = [group_d_winners[0], group_c_winners[1]]
+        quarter_4_winner = self.find_winner(quarter_4[0], quarter_4[1])
+
+        print("Quarter final winners: ")
+        print(quarter_1_winner, quarter_2_winner, quarter_3_winner, quarter_4_winner)
+        # Semi-finals
+        print("Semi final winners: ")
+        semi_1 = [quarter_3_winner, quarter_1_winner]
+        semi_1_winner = self.find_winner(semi_1[0], semi_1[1])
+        semi_2 = [quarter_4_winner, quarter_2_winner]
+        semi_2_winner = self.find_winner(semi_2[0], semi_2[1])
+
+        # Finals
+        finals_winner = self.find_winner(semi_1_winner, semi_2_winner)
+        print("Finals winner: ")
+        print(finals_winner)
+        return finals_winner
+
     def find_group_stage_winners(self, teams: List[str]) -> List[str]:
         """
         Finds two teams in a group who will advance to the knockout stage.
@@ -48,7 +86,7 @@ class Simulation:
         return self.find_countries_to_advance_in_group(win_counter)
 
     def find_countries_to_advance_in_group(self, win_counter):
-        print("Win counter " + str(win_counter))
+        print("Group stage win counter: " + str(win_counter))
         winners = sorted(win_counter.items(), key=lambda x: (-x[1], random.random()))
 
         return list(map(lambda x: x[0], winners[:2]))
@@ -61,6 +99,13 @@ class Simulation:
         """
         m = (b_rating - a_rating) / 400
         return 1 / (1 + 10 ** m)
+
+    def find_winner(self, team_a: str, team_b: str) -> str:
+        random_probability = random.random()
+        if random_probability <= self.probability_of_win_a(self.team_ratings[team_a], self.team_ratings[team_b]):
+            return team_a
+        else:
+            return team_b
 
     def is_a_winner(self, team_a: str, team_b: str) -> bool:
         """
@@ -76,9 +121,4 @@ class Simulation:
 simulation = Simulation()
 groupA = ["England", "Austria", "Norway", "Northern Ireland"]
 
-# for i in range(10):
-#     print(simulation.find_group_stage_winners(groupA))
-
-my_win_counter = {"England": 3, "Norway": 1, "Austria": 1, "Northern Ireland": 1}
-for i in range(10):
-    print(simulation.find_countries_to_advance_in_group(my_win_counter))
+print(simulation.knockout_stage())
