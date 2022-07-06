@@ -11,3 +11,4 @@ Coding problems in Scala programming language.
 - Mark V. Shaney - [Link to files](src/main/scala/markshaney)
     - https://programmingpraxis.com/2009/02/27/mark-v-shaney/
 - Mars Rover - [Link to files](src/main/scala/marsrover)
+- World Cup Prognostication - [Link to files](python/world_cup_prognostication)
