@@ -39,3 +39,22 @@ To save you a little time, here's what they currently are:
     Northern Ireland             980
     Portugal                    1248
 ```
+
+UEFA Women's Euro 2022
+
+Group A - England, Austria, Norway, Northern Ireland
+
+Group B - Germany, Denmark, Spain, Finland
+
+Group C - Netherlands, Sweden, Switzerland, Portugal
+
+Group D - France, Italy, Belgium, Iceland
+
+**Simulation run through:**
+
+1. Group stage simulation
+2. Knockout stage
+3. Decide winner
+4. Repeat simulation multiple times
+
+**Additional notes**: For simplicity there are no draws and tiebreakers in the group stage.
