@@ -90,7 +90,7 @@ class Simulation:
         return self.find_countries_to_advance_in_group(win_counter)
 
     def find_countries_to_advance_in_group(self, win_counter):
-        print("Group stage win counter: " + str(win_counter))
+        # print("Group stage win counter: " + str(win_counter))
         winners = sorted(win_counter.items(), key=lambda x: (-x[1], random.random()))
 
         return list(map(lambda x: x[0], winners[:2]))
